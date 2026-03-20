@@ -495,9 +495,9 @@ fn build_chart_summary(
     let chart_name_raw = entry.chart_name.as_ref().map_or_else(String::new, |bytes| {
         unescape_trim(decode_bytes(bytes).as_ref())
     });
-    let description = normalize_chart_desc(description_raw.clone(), timing_format, ssc_version);
     let chart_name =
         normalize_chart_name(chart_name_raw, &description_raw, timing_format, ssc_version);
+    let description = normalize_chart_desc(description_raw, timing_format, ssc_version);
     let difficulty_raw = unescape_trim(decode_bytes(fields[2]).as_ref());
     let rating_raw = unescape_trim(decode_bytes(fields[3]).as_ref());
     let difficulty_str =
