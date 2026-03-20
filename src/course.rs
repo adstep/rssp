@@ -873,7 +873,7 @@ pub fn analyze_crs_path(
         } else {
             let opened = simfile::open(&scan.simfile).map_err(|e| e.to_string())?;
             let summary =
-                crate::analysis::analyze(&opened.data, opened.extension, &options.clone())?;
+                crate::analysis::analyze(&opened.data, opened.extension, &options)?;
             sim_cache.insert(scan.simfile.clone(), summary);
             sim_cache
                 .get(&scan.simfile)
