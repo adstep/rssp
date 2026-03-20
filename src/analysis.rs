@@ -156,10 +156,12 @@ pub fn resolve_difficulty_label(
 
 #[must_use]
 pub fn step_type_lanes(step_type: &str) -> usize {
-    let normalized = step_type.trim().to_ascii_lowercase().replace('_', "-");
-    match normalized.as_str() {
-        "dance-double" => 8,
-        _ => 4,
+    let trimmed = step_type.trim();
+    if trimmed.eq_ignore_ascii_case("dance-double") || trimmed.eq_ignore_ascii_case("dance_double")
+    {
+        8
+    } else {
+        4
     }
 }
 
