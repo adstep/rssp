@@ -65,13 +65,15 @@ pub fn unescape_tag(tag: &str) -> Cow<'_, str> {
 
 #[must_use]
 pub fn unescape_trim(tag: &str) -> String {
-    let s = unescape_tag(tag);
-    let t = s.trim();
-    if t.len() == s.len() {
-        s.into_owned()
-    } else {
-        t.to_string()
+    let mut s = unescape_tag(tag).into_owned();
+    let trimmed_start = s.len() - s.trim_start().len();
+    let trimmed_end = s.len() - s.trim_end().len();
+    if trimmed_start == 0 && trimmed_end == 0 {
+        return s;
     }
+    s.truncate(s.len() - trimmed_end);
+    s.drain(..trimmed_start);
+    s
 }
 
 const CP1252_MAP: [u16; 32] = [
